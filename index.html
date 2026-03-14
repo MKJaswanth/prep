@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCS NQT — 8-Day Mastery Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #040810;
+  --surface: #0a1020;
+  --surface2: #0f1a30;
+  --border: rgba(99,179,255,0.12);
+  --blue: #3b82f6;
+  --blue-glow: rgba(59,130,246,0.3);
+  --teal: #06d6a0;
+  --teal-glow: rgba(6,214,160,0.25);
+  --amber: #f59e0b;
+  --amber-glow: rgba(245,158,11,0.25);
+  --coral: #f43f5e;
+  --coral-glow: rgba(244,63,94,0.25);
+  --purple: #a855f7;
+  --purple-glow: rgba(168,85,247,0.25);
+  --cyan: #22d3ee;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:none}
+
+/* Custom cursor */
+.cursor{position:fixed;width:12px;height:12px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.2s;mix-blend-mode:screen}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(59,130,246,0.5);border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.12s ease}
+.cursor.clicking{transform:scale(0.5)}
+.cursor-ring.clicking{transform:scale(1.5);border-color:var(--teal)}
+
+/* Noise texture overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4}
+
+/* Animated grid bg */
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;animation:gridMove 20s linear infinite}
+@keyframes gridMove{to{background-position:60px 60px}}
+
+/* Glow orbs */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.orb-1{width:600px;height:600px;background:rgba(59,130,246,0.08);top:-200px;left:-200px;animation:float1 15s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:rgba(6,214,160,0.06);bottom:-150px;right:-150px;animation:float2 18s ease-in-out infinite}
+.orb-3{width:400px;height:400px;background:rgba(168,85,247,0.06);top:50%;left:60%;animation:float3 12s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-60px)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,8,16,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-mono);font-size:13px;color:var(--blue);letter-spacing:0.1em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;font-family:var(--font-mono);text-transform:uppercase;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--blue);transition:width 0.3s}
+.nav-links a:hover{color:var(--blue)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{font-family:var(--font-mono);font-size:11px;padding:7px 18px;border:1px solid var(--blue);color:var(--blue);border-radius:4px;cursor:pointer;background:transparent;transition:all 0.2s;text-decoration:none}
+.nav-cta:hover{background:var(--blue-glow)}
+
+/* Sections */
+section{position:relative;z-index:1}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 80px 80px;position:relative;overflow:hidden}
+.hero-eyebrow{font-family:var(--font-mono);font-size:11px;color:var(--teal);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--teal)}
+.hero-title{font-family:var(--font-display);font-size:clamp(52px,8vw,96px);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:32px;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards}
+.hero-title .line-1{display:block;color:#fff}
+.hero-title .line-2{display:block;-webkit-text-stroke:1px var(--blue);color:transparent}
+.hero-title .line-3{display:block;color:var(--teal)}
+.hero-sub{font-size:16px;color:var(--text-dim);max-width:560px;line-height:1.7;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
+.hero-stats{display:flex;gap:40px;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
+.stat-item{display:flex;flex-direction:column;gap:4px}
+.stat-num{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;line-height:1}
+.stat-num.blue{color:var(--blue)}
+.stat-num.teal{color:var(--teal)}
+.stat-num.amber{color:var(--amber)}
+.stat-label{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em}
+.hero-right{position:absolute;right:80px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;opacity:0;animation:fadeIn 1s ease 1s forwards}
+.role-pill{padding:10px 20px;border-radius:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;border:1px solid;animation:pulseGlow 3s ease-in-out infinite}
+.role-pill.ninja{color:var(--blue);border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.08);animation-delay:0s}
+.role-pill.digital{color:var(--teal);border-color:rgba(6,214,160,0.4);background:rgba(6,214,160,0.08);animation-delay:1s}
+.role-pill.prime{color:var(--amber);border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.08);animation-delay:2s}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 8px currentColor,0 0 0 transparent}50%{box-shadow:0 0 20px currentColor,0 0 40px currentColor}}
+.hero-scroll{position:absolute;bottom:40px;left:80px;font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.15em;display:flex;align-items:center;gap:12px;animation:blink 2s ease infinite}
+.hero-scroll::after{content:'';display:block;width:40px;height:1px;background:var(--text-muted);animation:scrollLine 2s ease infinite}
+@keyframes scrollLine{0%{width:0;opacity:0}50%{width:40px;opacity:1}100%{width:40px;opacity:0}}
+@keyframes blink{0%,100%{opacity:0.5}50%{opacity:1}}
+
+/* Section headers */
+.section-header{padding:80px 80px 40px;display:flex;align-items:flex-end;justify-content:space-between}
+.section-label{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.1;letter-spacing:-0.02em}
+.section-count{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:0.1em}
+
+/* Exam Pattern */
+.pattern-grid{padding:0 80px 80px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.pattern-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:all 0.3s;cursor:default}
+.pattern-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.3s;border-radius:12px}
+.pattern-card:hover{transform:translateY(-4px)}
+.pattern-card:hover::before{opacity:1}
+.pc-1::before{background:radial-gradient(circle at 50% 0,rgba(59,130,246,0.1),transparent 70%)}
+.pc-2::before{background:radial-gradient(circle at 50% 0,rgba(6,214,160,0.1),transparent 70%)}
+.pc-3::before{background:radial-gradient(circle at 50% 0,rgba(245,158,11,0.1),transparent 70%)}
+.pc-4::before{background:radial-gradient(circle at 50% 0,rgba(244,63,94,0.1),transparent 70%)}
+.pc-5::before{background:radial-gradient(circle at 50% 0,rgba(168,85,247,0.1),transparent 70%)}
+.pc-1:hover{border-color:rgba(59,130,246,0.4);box-shadow:0 0 30px rgba(59,130,246,0.15)}
+.pc-2:hover{border-color:rgba(6,214,160,0.4);box-shadow:0 0 30px rgba(6,214,160,0.15)}
+.pc-3:hover{border-color:rgba(245,158,11,0.4);box-shadow:0 0 30px rgba(245,158,11,0.15)}
+.pc-4:hover{border-color:rgba(244,63,94,0.4);box-shadow:0 0 30px rgba(244,63,94,0.15)}
+.pc-5:hover{border-color:rgba(168,85,247,0.4);box-shadow:0 0 30px rgba(168,85,247,0.15)}
+.pc-icon{font-size:24px;margin-bottom:4px}
+.pc-qs{font-family:var(--font-display);font-size:42px;font-weight:800;line-height:1}
+.pc-name{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase}
+.pc-time{font-size:12px;color:var(--text-dim);margin-top:4px}
+.pc-marks{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-family:var(--font-mono);margin-top:6px}
+
+/* Rules bar */
+.rules-bar{margin:0 80px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.rule-chip{padding:16px 20px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:14px}
+.rule-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rule-text{font-size:13px;font-weight:500}
+.rule-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+
+/* Day Plan */
+.days-wrapper{padding:0 80px 80px}
+.days-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.day-tab{padding:8px 20px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:var(--font-mono);font-size:11px;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em}
+.day-tab:hover{border-color:var(--blue);color:var(--blue)}
+.day-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.day-content{display:none}
+.day-content.active{display:grid;grid-template-columns:1fr 1fr;gap:24px;animation:fadeIn 0.4s ease}
+.day-left{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.day-left::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.day-num-big{font-family:var(--font-display);font-size:80px;font-weight:800;line-height:1;opacity:0.06;position:absolute;top:20px;right:24px;color:#fff}
+.day-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;display:inline-block}
+.day-name{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:16px;line-height:1.2}
+.day-tip{font-size:13px;color:var(--text-dim);line-height:1.6;padding:14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid;margin-bottom:20px}
+.topic-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:var(--text-dim);line-height:1.4}
+.topic-item:last-child{border-bottom:none}
+.topic-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.day-right{display:flex;flex-direction:column;gap:16px}
+.day-resources{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.resources-label{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.15em;margin-bottom:14px;text-transform:uppercase}
+.resource-link{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-dim);font-size:13px;transition:all 0.2s;margin-bottom:8px}
+.resource-link:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-glow);transform:translateX(4px)}
+.resource-link:last-child{margin-bottom:0}
+.resource-link .arrow{font-size:16px;transition:transform 0.2s}
+.resource-link:hover .arrow{transform:translateX(4px)}
+.resource-link strong{color:var(--text);font-weight:500}
+.time-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.time-schedule{display:flex;flex-direction:column;gap:10px}
+.time-row{display:flex;gap:12px;align-items:center}
+.time-pill{font-family:var(--font-mono);font-size:10px;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;flex-shrink:0}
+.time-desc{font-size:12px;color:var(--text-dim)}
+
+/* Topics Matrix */
+.topics-section{padding:0 80px 80px}
+.priority-legend{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.prio-badge{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}
+.prio-dot{width:8px;height:8px;border-radius:50%}
+.topics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.topic-section-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.tsc-header{padding:20px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.tsc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.tsc-name{font-family:var(--font-display);font-size:17px;font-weight:700}
+.tsc-count{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-left:auto;letter-spacing:0.1em}
+.tsc-body{padding:0}
+.topic-row{display:flex;align-items:center;justify-content:space-between;padding:11px 24px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:var(--text-dim);transition:background 0.15s}
+.topic-row:hover{background:rgba(255,255,255,0.03)}
+.topic-row:last-child{border-bottom:none}
+.prio-tag{font-family:var(--font-mono);font-size:9px;padding:3px 9px;border-radius:20px;letter-spacing:0.08em;font-weight:700}
+.prio-hi{background:rgba(244,63,94,0.12);color:var(--coral)}
+.prio-md{background:rgba(245,158,11,0.12);color:var(--amber)}
+.prio-lo{background:rgba(6,214,160,0.12);color:var(--teal)}
+
+/* Resources */
+.resources-section{padding:0 80px 80px}
+.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.res-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all 0.3s}
+.res-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.res-card-icon{font-size:28px;margin-bottom:14px}
+.res-card-title{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:6px}
+.res-card-desc{font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6}
+.res-link{display:block;padding:9px 14px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;text-decoration:none;color:var(--blue);font-size:12px;font-family:var(--font-mono);letter-spacing:0.05em;text-align:center;transition:all 0.2s;margin-bottom:8px}
+.res-link:hover{background:rgba(59,130,246,0.2);transform:scale(1.02)}
+.res-link:last-child{margin-bottom:0}
+
+/* Tips */
+.tips-section{padding:0 80px 80px}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.tip-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
+.tip-card-title{font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.tip-list{display:flex;flex-direction:column;gap:10px}
+.tip-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:8px;transition:background 0.15s}
+.tip-item:hover{background:rgba(255,255,255,0.03)}
+.tip-bullet{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-family:var(--font-mono);font-weight:700}
+.tip-text{font-size:13px;color:var(--text-dim);line-height:1.5}
+.tip-strong{color:var(--text);font-weight:500}
+
+/* Formula cheat */
+.formula-section{padding:0 80px 80px}
+.formula-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.formula-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.formula-topic{font-family:var(--font-mono);font-size:10px;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.formula-text{font-size:13px;color:var(--text-dim);line-height:1.6;font-family:var(--font-mono);background:rgba(255,255,255,0.03);padding:12px;border-radius:6px;font-size:12px}
+
+/* Footer / Final CTA */
+.finale{padding:80px;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.finale::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(59,130,246,0.1),transparent 70%)}
+.finale-title{font-family:var(--font-display);font-size:clamp(36px,5vw,72px);font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:20px;position:relative}
+.finale-title span{-webkit-text-stroke:1px var(--blue);color:transparent}
+.finale-sub{font-size:16px;color:var(--text-dim);margin-bottom:40px;position:relative}
+.finale-badges{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative}
+.finale-badge{padding:12px 24px;border-radius:8px;font-family:var(--font-mono);font-size:12px;border:1px solid;letter-spacing:0.05em}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px}
+
+/* Mobile */
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .hero{padding:100px 24px 60px}
+  .hero-right{display:none}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .section-header,.pattern-grid,.rules-bar,.days-wrapper,.topics-section,.resources-section,.tips-section,.formula-section,.resources-grid,.finale{padding-left:24px;padding-right:24px}
+  .pattern-grid{grid-template-columns:repeat(2,1fr)}
+  .rules-bar,.topics-grid,.tips-grid,.formula-grid,.resources-grid{grid-template-columns:1fr}
+  .day-content.active{grid-template-columns:1fr}
+}
+
+/* Color accent variations */
+.c-blue{color:var(--blue)}
+.c-teal{color:var(--teal)}
+.c-amber{color:var(--amber)}
+.c-coral{color:var(--coral)}
+.c-purple{color:var(--purple)}
+.bg-blue{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3)}
+.bg-teal{background:rgba(6,214,160,0.1);border-color:rgba(6,214,160,0.3)}
+.bg-amber{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3)}
+.bg-coral{background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.3)}
+.bg-purple{background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.3)}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="grid-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TCS<span>_NQT</span>.guide</div>
+  <div class="nav-links">
+    <a href="#pattern">Pattern</a>
+    <a href="#plan">8-Day Plan</a>
+    <a href="#topics">Topics</a>
+    <a href="#resources">Resources</a>
+    <a href="#tips">Tips</a>
+    <a href="#formulas">Formulas</a>
+  </div>
+  <a href="#plan" class="nav-cta">Start Prep →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">All India Batch · 8-Day Battle Plan</div>
+  <h1 class="hero-title">
+    <span class="line-1">CRACK THE</span>
+    <span class="line-2">TCS NQT</span>
+    <span class="line-3">IN 8 DAYS.</span>
+  </h1>
+  <p class="hero-sub">Complete prep guide — every topic, free resource, day-by-day schedule, and exam strategy. Built for students with limited time and big goals.</p>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num blue">92</div><div class="stat-label">Total Qs</div></div>
+    <div class="stat-item"><div class="stat-num teal">5</div><div class="stat-label">Sections</div></div>
+    <div class="stat-item"><div class="stat-num amber">8</div><div class="stat-label">Days Left</div></div>
+    <div class="stat-item"><div class="stat-num" style="color:var(--coral)">0</div><div class="stat-label">Neg Marking</div></div>
+  </div>
+  <div class="hero-right">
+    <div class="role-pill ninja">◆ NINJA — ~50th Percentile</div>
+    <div class="role-pill digital">◆ DIGITAL — ~70th Percentile</div>
+    <div class="role-pill prime">◆ PRIME — Top Performers</div>
+  </div>
+  <div class="hero-scroll">SCROLL DOWN</div>
+</section>
+
+<!-- EXAM PATTERN -->
+<section id="pattern">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">01 / Exam Structure</div>
+      <h2 class="section-title">Know the <span class="c-blue">Pattern</span></h2>
+    </div>
+    <div class="section-count">92 Questions · 3 Hours</div>
+  </div>
+  <div class="pattern-grid reveal">
+    <div class="pattern-card pc-1">
+      <div class="pc-icon">📖</div>
+      <div class="pc-qs" style="color:var(--blue)">25</div>
+      <div class="pc-name">Verbal Ability</div>
+      <div class="pc-time">75 min (shared pool)</div>
+      <div class="pc-marks" style="background:rgba(59,130,246,0.12);color:var(--blue)">3 marks each</div>
+    </div>
+    <div class="pattern-card pc-2">
+      <div class="pc-icon">🧩</div>
+      <div class="pc-qs" style="color:var(--teal)">20</div>
+      <div class="pc-name">Reasoning Ability</div>
+      <div class="pc-time">75 min (shared pool)</div>
+      <div class="pc-marks" style="background:rgba(6,214,160,0.12);color:var(--teal)">3 marks each</div>
+    </div>
+    <div class="pattern-card pc-3">
+      <div class="pc-icon">🔢</div>
+      <div class="pc-qs" style="color:var(--amber)">20</div>
+      <div class="pc-name">Numerical Ability</div>
+      <div class="pc-time">75 min (shared pool)</div>
+      <div class="pc-marks" style="background:rgba(245,158,11,0.12);color:var(--amber)">3 marks each</div>
+    </div>
+    <div class="pattern-card pc-4">
+      <div class="pc-icon">💻</div>
+      <div class="pc-qs" style="color:var(--coral)">15</div>
+      <div class="pc-name">Prog. Logic</div>
+      <div class="pc-time">75 min (shared pool)</div>
+      <div class="pc-marks" style="background:rgba(244,63,94,0.12);color:var(--coral)">3 marks each</div>
+    </div>
+    <div class="pattern-card pc-5">
+      <div class="pc-icon">⌨️</div>
+      <div class="pc-qs" style="color:var(--purple)">2</div>
+      <div class="pc-name">Coding (Hands-on)</div>
+      <div class="pc-time">90 min (separate)</div>
+      <div class="pc-marks" style="background:rgba(168,85,247,0.12);color:var(--purple)">10–20 marks</div>
+    </div>
+  </div>
+  <div class="rules-bar reveal">
+    <div class="rule-chip">
+      <div class="rule-icon" style="background:rgba(6,214,160,0.1)">✅</div>
+      <div><div class="rule-text c-teal">No Negative Marking</div><div class="rule-sub">Attempt every question — never leave blank</div></div>
+    </div>
+    <div class="rule-chip">
+      <div class="rule-icon" style="background:rgba(244,63,94,0.1)">⛔</div>
+      <div><div class="rule-text c-coral">No Going Back</div><div class="rule-sub">Can't revisit answered questions</div></div>
+    </div>
+    <div class="rule-chip">
+      <div class="rule-icon" style="background:rgba(59,130,246,0.1)">🖩</div>
+      <div><div class="rule-text c-blue">Calculator Provided</div><div class="rule-sub">On-screen — use it, don't waste time</div></div>
+    </div>
+    <div class="rule-chip">
+      <div class="rule-icon" style="background:rgba(245,158,11,0.1)">👁️</div>
+      <div><div class="rule-text c-amber">No Tab Switching</div><div class="rule-sub">Monitored — don't switch browser tabs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8-DAY PLAN -->
+<section id="plan">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">02 / Study Schedule</div>
+      <h2 class="section-title">The <span class="c-teal">8-Day</span> Plan</h2>
+    </div>
+  </div>
+  <div class="days-wrapper reveal">
+    <div class="days-tabs">
+      <button class="day-tab active" onclick="showDay(1)">Day 1</button>
+      <button class="day-tab" onclick="showDay(2)">Day 2</button>
+      <button class="day-tab" onclick="showDay(3)">Day 3</button>
+      <button class="day-tab" onclick="showDay(4)">Day 4</button>
+      <button class="day-tab" onclick="showDay(5)">Day 5</button>
+      <button class="day-tab" onclick="showDay(6)">Day 6</button>
+      <button class="day-tab" onclick="showDay(7)">Day 7</button>
+      <button class="day-tab" onclick="showDay(8)">Day 8</button>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="day-content active" id="day-1">
+      <div class="day-left" style="border-top-color:var(--blue)">
+        <div class="day-num-big">01</div>
+        <div class="day-tag c-blue">Quantitative · 6 Hours</div>
+        <div class="day-name">Quant <span class="c-blue">Foundation</span></div>
+        <div class="day-tip" style="border-color:var(--blue)">Morning: formula study (2h) → Afternoon: 30 Qs/topic (3h) → Evening: timed quiz (1h)</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Number System — LCM, HCF, divisibility rules, remainders</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Percentages — basic to applied word problems</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Ratio & Proportion — direct & inverse</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Averages & Mixtures / Alligation method</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Profit & Loss — discount, successive profit/loss</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.indiabix.com/aptitude/questions-and-answers/" target="_blank" class="resource-link"><div><strong>IndiaBix Aptitude</strong><br><span style="font-size:11px">Huge PYQ bank for all quant topics</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/numerical-ability/" target="_blank" class="resource-link"><div><strong>PrepInsta NQT Numerical</strong><br><span style="font-size:11px">TCS-specific numerical questions</span></div><span class="arrow">→</span></a>
+          <a href="https://www.youtube.com/@CareerRide" target="_blank" class="resource-link"><div><strong>CareerRide YouTube</strong><br><span style="font-size:11px">Shortcut tricks, fast solving methods</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/aptitude-questions-and-answers/" target="_blank" class="resource-link"><div><strong>GFG Aptitude</strong><br><span style="font-size:11px">Topic-wise practice with solutions</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">06:00–08:00</span><span class="time-desc">Study formulas + shortcuts</span></div>
+            <div class="time-row"><span class="time-pill">09:00–12:00</span><span class="time-desc">30 questions per topic</span></div>
+            <div class="time-row"><span class="time-pill">14:00–17:00</span><span class="time-desc">Mixed practice set</span></div>
+            <div class="time-row"><span class="time-pill">18:00–19:00</span><span class="time-desc">Timed 20-Q quiz</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-content" id="day-2">
+      <div class="day-left" style="border-top-color:var(--blue)">
+        <div class="day-num-big">02</div>
+        <div class="day-tag c-blue">Quantitative Advanced · 6 Hours</div>
+        <div class="day-name">Quant <span class="c-blue">Advanced</span></div>
+        <div class="day-tip" style="border-color:var(--blue)">DI is very frequent in TCS NQT. Spend at least 2 hours doing full DI sets (10 sets minimum).</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Time, Speed & Distance — trains, boats, relative motion</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Time & Work — pipes & cisterns, efficiency method</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Probability — basic + combined events</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Permutations & Combinations — selections, circular</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--blue)"></span>Data Interpretation — tables, bar, pie, line charts</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.indiabix.com/data-interpretation/questions-and-answers/" target="_blank" class="resource-link"><div><strong>IndiaBix DI Section</strong><br><span style="font-size:11px">Best source for DI practice sets</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/numerical-ability/" target="_blank" class="resource-link"><div><strong>PrepInsta Numerical</strong><br><span style="font-size:11px">TCS-specific P&C and probability</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/aptitude-questions-and-answers/" target="_blank" class="resource-link"><div><strong>GFG Aptitude</strong><br><span style="font-size:11px">Full solutions with explanations</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">06:00–08:00</span><span class="time-desc">TSD + Time & Work formulas</span></div>
+            <div class="time-row"><span class="time-pill">09:00–11:00</span><span class="time-desc">P&C + Probability practice</span></div>
+            <div class="time-row"><span class="time-pill">12:00–14:00</span><span class="time-desc">DI sets — 5 complete sets</span></div>
+            <div class="time-row"><span class="time-pill">15:00–18:00</span><span class="time-desc">DI sets continued + review</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-content" id="day-3">
+      <div class="day-left" style="border-top-color:var(--teal)">
+        <div class="day-num-big">03</div>
+        <div class="day-tag c-teal">Logical Reasoning · 6 Hours</div>
+        <div class="day-name">Reasoning <span class="c-teal">Mastery</span></div>
+        <div class="day-tip" style="border-color:var(--teal)">Arrangements = 40% of Reasoning section. Do at least 5 full seating arrangement puzzle sets (10 Qs each).</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Data Arrangements — Linear, Circular, Floor, Multi-dimensional</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Number Series — missing term, odd one out, letter series</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Blood Relations — draw family tree, always</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Direction Sense — use compass diagram method</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Syllogisms — All/Some/No type with Venn approach</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Clocks & Calendars — angle formula, day calculation</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.indiabix.com/logical-reasoning/questions-and-answers/" target="_blank" class="resource-link"><div><strong>IndiaBix Reasoning</strong><br><span style="font-size:11px">Largest free reasoning PYQ collection</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/reasoning-ability/" target="_blank" class="resource-link"><div><strong>PrepInsta TCS Reasoning</strong><br><span style="font-size:11px">TCS-specific arrangement & puzzle sets</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/logical-reasoning/" target="_blank" class="resource-link"><div><strong>GFG Logical Reasoning</strong><br><span style="font-size:11px">Categorized topic-wise practice</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">06:00–09:00</span><span class="time-desc">Seating arrangements (5 sets)</span></div>
+            <div class="time-row"><span class="time-pill">09:30–11:30</span><span class="time-desc">Number series + Blood relations</span></div>
+            <div class="time-row"><span class="time-pill">13:00–15:00</span><span class="time-desc">Syllogisms + Direction sense</span></div>
+            <div class="time-row"><span class="time-pill">15:30–17:30</span><span class="time-desc">Mixed reasoning mock test</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-content" id="day-4">
+      <div class="day-left" style="border-top-color:var(--amber)">
+        <div class="day-num-big">04</div>
+        <div class="day-tag c-amber">Verbal Ability · 5 Hours</div>
+        <div class="day-name">Verbal <span class="c-amber">Skills</span></div>
+        <div class="day-tip" style="border-color:var(--amber)">RC = 30% of Verbal. Practice skimming 250-word passages in under 2 minutes. Read questions first, then passage.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Reading Comprehension — 3-4 passages (skimming technique)</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Sentence Completion — fill in the blank, cloze tests</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Error Spotting — subject-verb agreement, tense errors</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Active & Passive Voice — all tense forms</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Synonyms & Antonyms — learn 40 high-frequency words</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--amber)"></span>Para Jumbles — identify topic & concluding sentences first</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.indiabix.com/verbal-ability/questions-and-answers/" target="_blank" class="resource-link"><div><strong>IndiaBix Verbal</strong><br><span style="font-size:11px">All verbal topics with solutions</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/english-for-competitive-examinations/" target="_blank" class="resource-link"><div><strong>GFG English Section</strong><br><span style="font-size:11px">Grammar rules + practice questions</span></div><span class="arrow">→</span></a>
+          <a href="https://www.vocabulary.com/" target="_blank" class="resource-link"><div><strong>Vocabulary.com</strong><br><span style="font-size:11px">Learn 40 high-frequency words with games</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">07:00–09:00</span><span class="time-desc">RC practice — 4 passages</span></div>
+            <div class="time-row"><span class="time-pill">09:30–11:00</span><span class="time-desc">Grammar: tenses, voice, errors</span></div>
+            <div class="time-row"><span class="time-pill">13:00–14:30</span><span class="time-desc">Synonyms, antonyms, vocab</span></div>
+            <div class="time-row"><span class="time-pill">15:00–16:30</span><span class="time-desc">Para jumbles + full verbal mock</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-content" id="day-5">
+      <div class="day-left" style="border-top-color:var(--coral)">
+        <div class="day-num-big">05</div>
+        <div class="day-tag c-coral">Programming Logic · 6 Hours</div>
+        <div class="day-name">Prog. Logic <span class="c-coral">MCQs</span></div>
+        <div class="day-tip" style="border-color:var(--coral)">These are MCQs — trace code on paper, predict output. Do 40+ output prediction questions. IndiaBix C section is gold.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Data types, variables, operators, scope in C/C++</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Loops — for, while, do-while output tracing</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Functions — call by value vs reference, stack frames</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Arrays & Strings — common manipulation patterns</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Pointers — NULL pointer, pointer arithmetic basics</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--coral)"></span>Output Prediction Qs — 40+ MCQs (highest scoring!)</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.indiabix.com/c-programming/questions-and-answers/" target="_blank" class="resource-link"><div><strong>IndiaBix C Programming</strong><br><span style="font-size:11px">1000+ C output prediction MCQs</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/programming-logic/" target="_blank" class="resource-link"><div><strong>PrepInsta Prog Logic</strong><br><span style="font-size:11px">TCS NQT style programming MCQs</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/c-programming-language/" target="_blank" class="resource-link"><div><strong>GFG C Programming</strong><br><span style="font-size:11px">Concepts + tricky output questions</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">06:00–08:00</span><span class="time-desc">Data types, loops — 20 output Qs</span></div>
+            <div class="time-row"><span class="time-pill">09:00–11:00</span><span class="time-desc">Functions, pointers — 20 Qs</span></div>
+            <div class="time-row"><span class="time-pill">13:00–15:00</span><span class="time-desc">Arrays & strings — 20 Qs</span></div>
+            <div class="time-row"><span class="time-pill">16:00–18:00</span><span class="time-desc">Mixed programming mock test</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-content" id="day-6">
+      <div class="day-left" style="border-top-color:var(--purple)">
+        <div class="day-num-big">06</div>
+        <div class="day-tag c-purple">Coding — Hands-on · 7 Hours</div>
+        <div class="day-name">Code <span class="c-purple">Practice</span></div>
+        <div class="day-tip" style="border-color:var(--purple)">Aim to solve each problem in under 30 min. Write brute-force first — partial marks count! Python is fastest to write.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Arrays — linear search, bubble/selection sort, two-pointer</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Strings — reverse, palindrome, anagram, substring</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Math problems — prime check, factorial, Fibonacci, GCD</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Patterns — number triangles, star pyramids</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Basic recursion — factorial, Fibonacci, power</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Solve 8–10 easy-medium problems on HackerRank/LeetCode</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Today's Resources</div>
+          <a href="https://www.hackerrank.com/interview/interview-preparation-kit" target="_blank" class="resource-link"><div><strong>HackerRank Interview Kit</strong><br><span style="font-size:11px">Arrays, strings, sorting problems</span></div><span class="arrow">→</span></a>
+          <a href="https://leetcode.com/problemset/?difficulty=EASY" target="_blank" class="resource-link"><div><strong>LeetCode Easy Problems</strong><br><span style="font-size:11px">TCS-level difficulty easy problems</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/coding-questions/" target="_blank" class="resource-link"><div><strong>PrepInsta TCS Coding Qs</strong><br><span style="font-size:11px">Previous TCS NQT coding questions</span></div><span class="arrow">→</span></a>
+          <a href="https://www.youtube.com/@CodeWithHarry" target="_blank" class="resource-link"><div><strong>CodeWithHarry</strong><br><span style="font-size:11px">Python/C basics for coding section</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">06:00–08:30</span><span class="time-desc">Arrays + Strings (3 problems)</span></div>
+            <div class="time-row"><span class="time-pill">09:00–11:30</span><span class="time-desc">Math + Pattern problems</span></div>
+            <div class="time-row"><span class="time-pill">13:00–15:30</span><span class="time-desc">HackerRank — 4 problems</span></div>
+            <div class="time-row"><span class="time-pill">16:00–18:00</span><span class="time-desc">LeetCode Easy — timed rounds</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-content" id="day-7">
+      <div class="day-left" style="border-top-color:#7c3aed">
+        <div class="day-num-big">07</div>
+        <div class="day-tag" style="color:#7c3aed">Full Mock Test · 8 Hours</div>
+        <div class="day-name">Mock Test + <span style="color:#7c3aed">Weak Areas</span></div>
+        <div class="day-tip" style="border-color:#7c3aed">Simulate real exam: no phone, no pausing, no going back. Morning mock, afternoon deep analysis, evening targeted revision.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:#7c3aed"></span>Take 1 full TCS NQT mock test — 3 hours, strictly timed</div>
+        <div class="topic-item"><span class="topic-dot" style="background:#7c3aed"></span>Analyze wrong answers — identify weakest section</div>
+        <div class="topic-item"><span class="topic-dot" style="background:#7c3aed"></span>Revise formulas for your weakest Quant topic (1 hr)</div>
+        <div class="topic-item"><span class="topic-dot" style="background:#7c3aed"></span>Do 20 more Reasoning Qs from your weak area only</div>
+        <div class="topic-item"><span class="topic-dot" style="background:#7c3aed"></span>Solve 2 fresh coding problems without hints</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Mock Test Sources</div>
+          <a href="https://www.geeksforgeeks.org/quiz/tcs-nqt/" target="_blank" class="resource-link"><div><strong>GFG TCS NQT Quiz</strong><br><span style="font-size:11px">Official-style NQT mock questions</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/mock-test/" target="_blank" class="resource-link"><div><strong>PrepInsta Full Mock Test</strong><br><span style="font-size:11px">Closest to real TCS NQT pattern</span></div><span class="arrow">→</span></a>
+          <a href="https://www.freshersworld.com/tcs-nqt-online-test/1" target="_blank" class="resource-link"><div><strong>FreshersWorld Mock</strong><br><span style="font-size:11px">Free full-length NQT simulation</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">08:00–11:00</span><span class="time-desc">Full mock test (3 hrs, no breaks)</span></div>
+            <div class="time-row"><span class="time-pill">11:30–13:00</span><span class="time-desc">Deep analysis — every wrong Ans</span></div>
+            <div class="time-row"><span class="time-pill">14:00–16:00</span><span class="time-desc">Weak topic revision (focused)</span></div>
+            <div class="time-row"><span class="time-pill">17:00–19:00</span><span class="time-desc">2 coding problems cold</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-content" id="day-8">
+      <div class="day-left" style="border-top-color:var(--teal)">
+        <div class="day-num-big">08</div>
+        <div class="day-tag c-teal">Light Revision · 4 Hours Max</div>
+        <div class="day-name">Revise & <span class="c-teal">Rest</span></div>
+        <div class="day-tip" style="border-color:var(--teal)">Keep Day 8 LIGHT. Confidence beats cramming. No new topics. Review notes, get 7–8 hours sleep. Alertness &gt; knowledge.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Quick scan: all formula sheets (Quant + Reasoning tricks)</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Light practice: 10 Verbal + 10 Reasoning Qs only</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Review TCS NQT PYQs for last-minute pattern awareness</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Re-attempt 1 coding problem you felt unsure about</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Sleep 7–8 hours. NO all-nighter! Cognitive drop = 20–30%</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">PYQ Banks</div>
+          <a href="https://prepinsta.com/tcs-nqt/previous-year-papers/" target="_blank" class="resource-link"><div><strong>PrepInsta PYQs</strong><br><span style="font-size:11px">Previous year NQT papers with answers</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/tcs-nqt-previous-year-papers/" target="_blank" class="resource-link"><div><strong>GFG TCS NQT PYQs</strong><br><span style="font-size:11px">Detailed solutions for each paper</span></div><span class="arrow">→</span></a>
+          <a href="https://learning.tcsionhub.in/hub/campus/" target="_blank" class="resource-link"><div><strong>TCS iON Official Portal</strong><br><span style="font-size:11px">Official practice material from TCS</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">08:00–09:00</span><span class="time-desc">Formula sheet revision only</span></div>
+            <div class="time-row"><span class="time-pill">09:30–11:00</span><span class="time-desc">20 Qs light practice</span></div>
+            <div class="time-row"><span class="time-pill">11:30–12:30</span><span class="time-desc">PYQ pattern review</span></div>
+            <div class="time-row"><span class="time-pill">13:00+</span><span class="time-desc">Rest, eat well, sleep early</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS MATRIX -->
+<section id="topics">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">03 / Topic Coverage</div>
+      <h2 class="section-title">All <span class="c-amber">Topics</span> Mapped</h2>
+    </div>
+  </div>
+  <div class="topics-section reveal">
+    <div class="priority-legend">
+      <div class="prio-badge"><span class="prio-dot" style="background:var(--coral)"></span>HIGH — Very frequent in TCS NQT</div>
+      <div class="prio-badge"><span class="prio-dot" style="background:var(--amber)"></span>MEDIUM — Appears regularly</div>
+      <div class="prio-badge"><span class="prio-dot" style="background:var(--teal)"></span>LOW — Occasional, attempt if time</div>
+    </div>
+    <div class="topics-grid">
+      <div class="topic-section-card">
+        <div class="tsc-header">
+          <div class="tsc-icon" style="background:rgba(59,130,246,0.12)">🔢</div>
+          <div class="tsc-name c-blue">Numerical Ability</div>
+          <div class="tsc-count">20 Qs · 3 pts each</div>
+        </div>
+        <div class="tsc-body">
+          <div class="topic-row">Number System — LCM, HCF, Remainders<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Percentages — Applied Problems<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Probability — Events, Combined<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Permutations & Combinations<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Data Interpretation (DI)<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Time, Speed & Distance<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Time & Work / Pipes<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Profit & Loss / Discount<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Ratio & Proportion<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Simple & Compound Interest<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Geometry & Mensuration<span class="prio-tag prio-lo">LOW</span></div>
+          <div class="topic-row">Data Sufficiency<span class="prio-tag prio-lo">LOW</span></div>
+        </div>
+      </div>
+      <div class="topic-section-card">
+        <div class="tsc-header">
+          <div class="tsc-icon" style="background:rgba(6,214,160,0.12)">🧩</div>
+          <div class="tsc-name c-teal">Reasoning Ability</div>
+          <div class="tsc-count">20 Qs · 3 pts each</div>
+        </div>
+        <div class="tsc-body">
+          <div class="topic-row">Data Arrangements — Seating Puzzles<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Number Series — Missing Term<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Syllogisms — All/Some/No<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Blood Relations — Family Tree<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Venn Diagrams<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Direction Sense — Compass Method<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Clocks & Calendars<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Analogies — Pattern Recognition<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Odd One Out<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Coding-Decoding<span class="prio-tag prio-lo">LOW</span></div>
+          <div class="topic-row">Data Sufficiency<span class="prio-tag prio-lo">LOW</span></div>
+        </div>
+      </div>
+      <div class="topic-section-card">
+        <div class="tsc-header">
+          <div class="tsc-icon" style="background:rgba(245,158,11,0.12)">📖</div>
+          <div class="tsc-name c-amber">Verbal Ability</div>
+          <div class="tsc-count">25 Qs · 3 pts each</div>
+        </div>
+        <div class="tsc-body">
+          <div class="topic-row">Reading Comprehension (RC)<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Sentence Completion / Cloze<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Tenses, Grammar Rules<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Active & Passive Voice<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Synonyms & Antonyms<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Para Jumbles / Sentence Order<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Error Spotting / Correction<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Articles & Prepositions<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Idioms & Phrases<span class="prio-tag prio-lo">LOW</span></div>
+          <div class="topic-row">One Word Substitution<span class="prio-tag prio-lo">LOW</span></div>
+        </div>
+      </div>
+      <div class="topic-section-card">
+        <div class="tsc-header">
+          <div class="tsc-icon" style="background:rgba(244,63,94,0.12)">💻</div>
+          <div class="tsc-name c-coral">Programming Logic</div>
+          <div class="tsc-count">15 Qs + 2 Coding Qs</div>
+        </div>
+        <div class="tsc-body">
+          <div class="topic-row">Output Prediction (C/C++)<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Arrays & String Manipulation<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Functions, Scope, Stack<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Data Types, Operators<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Loops — for/while/do-while<span class="prio-tag prio-hi">HIGH</span></div>
+          <div class="topic-row">Pointers & Memory Basics<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Sorting — Bubble, Selection<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Recursion Basics<span class="prio-tag prio-md">MED</span></div>
+          <div class="topic-row">Linked List (Conceptual)<span class="prio-tag prio-lo">LOW</span></div>
+          <div class="topic-row">Stack & Queue Basics<span class="prio-tag prio-lo">LOW</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">04 / Study Material</div>
+      <h2 class="section-title">Free <span class="c-coral">Resources</span></h2>
+    </div>
+  </div>
+  <div class="resources-section reveal">
+    <div class="resources-grid">
+      <div class="res-card">
+        <div class="res-card-icon">📚</div>
+        <div class="res-card-title">Practice Platforms</div>
+        <div class="res-card-desc">Best websites for topic-wise practice, PYQs, and timed mock tests — all 100% free.</div>
+        <a href="https://www.indiabix.com/aptitude/questions-and-answers/" target="_blank" class="res-link">IndiaBix — Aptitude PYQs →</a>
+        <a href="https://prepinsta.com/tcs-nqt/" target="_blank" class="res-link">PrepInsta — TCS NQT Hub →</a>
+        <a href="https://www.geeksforgeeks.org/quiz/tcs-nqt/" target="_blank" class="res-link">GeeksforGeeks — NQT Quiz →</a>
+        <a href="https://www.hackerrank.com/interview/interview-preparation-kit" target="_blank" class="res-link">HackerRank — Coding Kit →</a>
+        <a href="https://leetcode.com/problemset/?difficulty=EASY" target="_blank" class="res-link">LeetCode — Easy Problems →</a>
+      </div>
+      <div class="res-card">
+        <div class="res-card-icon">▶️</div>
+        <div class="res-card-title">YouTube Channels</div>
+        <div class="res-card-desc">Video learning for shortcuts, tricks, and concept clarity — watch while commuting.</div>
+        <a href="https://www.youtube.com/@CareerRide" target="_blank" class="res-link">CareerRide — Aptitude Tricks →</a>
+        <a href="https://www.freshersworld.com/tcs-nqt-online-test/1" target="_blank" class="res-link">FreshersWorld — NQT Specific →</a>
+        <a href="https://www.youtube.com/@CodeWithHarry" target="_blank" class="res-link">CodeWithHarry — C/Python →</a>
+        <a href="https://www.youtube.com/@UnacademyCompetitiveExams" target="_blank" class="res-link">Unacademy — Quant Strategy →</a>
+      </div>
+      <div class="res-card">
+        <div class="res-card-icon">🏛️</div>
+        <div class="res-card-title">Official & Mock Tests</div>
+        <div class="res-card-desc">TCS official resources and high-quality mock tests closest to the real exam format.</div>
+        <a href="https://learning.tcsionhub.in/hub/campus/" target="_blank" class="res-link">TCS iON — Official Course →</a>
+        <a href="https://prepinsta.com/tcs-nqt/mock-test/" target="_blank" class="res-link">PrepInsta — Full Mock Test →</a>
+        <a href="https://prepinsta.com/tcs-nqt/previous-year-papers/" target="_blank" class="res-link">PrepInsta — PYQ Papers →</a>
+        <a href="https://www.geeksforgeeks.org/tcs-nqt-previous-year-papers/" target="_blank" class="res-link">GFG — PYQ with Solutions →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">05 / Exam Strategy</div>
+      <h2 class="section-title">Win on <span class="c-purple">Exam Day</span></h2>
+    </div>
+  </div>
+  <div class="tips-section reveal">
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-card-title"><span style="font-size:20px">⚡</span> Section-wise Strategy</div>
+        <div class="tip-list">
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(245,158,11,0.1);color:var(--amber)">V</div><div class="tip-text"><span class="tip-strong">Verbal:</span> Read questions first, then skim RC passage. Do grammar Qs first (fastest).</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">R</div><div class="tip-text"><span class="tip-strong">Reasoning:</span> Draw grids for arrangements. Skip hard puzzles, return if time allows.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(59,130,246,0.1);color:var(--blue)">N</div><div class="tip-text"><span class="tip-strong">Numerical:</span> Use the on-screen calculator always. Estimate for DI — no exact math needed.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">P</div><div class="tip-text"><span class="tip-strong">Prog Logic:</span> Trace code line by line on scratch paper. Eliminate wrong options first.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(168,85,247,0.1);color:var(--purple)">C</div><div class="tip-text"><span class="tip-strong">Coding:</span> Brute-force first — partial marks count. Test with examples before submit.</div></div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-title"><span style="font-size:20px">🧠</span> Smart Shortcuts</div>
+        <div class="tip-list">
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">1</div><div class="tip-text"><span class="tip-strong">Memorise squares 1–25, cubes 1–15.</span> Saves 20–30 sec per Quant question.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">2</div><div class="tip-text"><span class="tip-strong">Fraction-% table:</span> 1/3=33.3%, 1/6=16.7%, 1/7=14.3%, 1/8=12.5%, 1/9=11.1%</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">3</div><div class="tip-text"><span class="tip-strong">Blood relations:</span> Always draw a family tree. Never solve in your head.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">4</div><div class="tip-text"><span class="tip-strong">Arrangements:</span> Make a grid immediately — rows = people, cols = attributes.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">5</div><div class="tip-text"><span class="tip-strong">Syllogisms:</span> Draw tiny Venn circles for each statement before evaluating.</div></div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-title"><span style="font-size:20px">🚫</span> What NOT to Do</div>
+        <div class="tip-list">
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Leave questions blank.</span> No negative marking — always attempt. Guess after elimination.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Spend 3+ min on one Aptitude Q.</span> Mark your best guess and move on immediately.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Start new topics on Day 8.</span> Only revise what you know — panic, not progress.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Pull an all-nighter.</span> Cognitive performance drops 20–30% without 7–8 hrs sleep.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Skip the Day 7 mock test.</span> Time management is a skill — it must be practiced.</div></div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-title"><span style="font-size:20px">🎯</span> Languages Allowed</div>
+        <div class="tip-list">
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(59,130,246,0.1);color:var(--blue)">Py</div><div class="tip-text"><span class="tip-strong">Python — Recommended.</span> Fastest to write, least syntax. Best for most students.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(6,214,160,0.1);color:var(--teal)">C</div><div class="tip-text"><span class="tip-strong">C/C++ — Good for MCQ section.</span> Use what you're most comfortable with.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(245,158,11,0.1);color:var(--amber)">J</div><div class="tip-text"><span class="tip-strong">Java — Acceptable.</span> Slightly more verbose but valid choice.</div></div>
+          <div class="tip-item" style="padding:14px;background:rgba(6,214,160,0.05);border-radius:8px;border:1px solid rgba(6,214,160,0.15)"><div class="tip-text" style="color:var(--teal)">💡 <strong>Pro tip:</strong> Use Python dict & list comprehensions. They solve most TCS problems in 3–5 lines.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAS -->
+<section id="formulas">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">06 / Quick Reference</div>
+      <h2 class="section-title">Formula <span class="c-blue">Cheat Sheet</span></h2>
+    </div>
+  </div>
+  <div class="formula-section reveal">
+    <div class="formula-grid">
+      <div class="formula-card"><div class="formula-topic">Time & Work</div><div class="formula-text">A in x days, B in y days → Together = (x×y)/(x+y) days<br>If A is n times efficient as B → A does n parts, B does 1 part</div></div>
+      <div class="formula-card"><div class="formula-topic">Time Speed Distance</div><div class="formula-text">Speed = Distance / Time<br>Relative speed (same dir) = |S1 - S2|<br>Relative speed (opposite) = S1 + S2<br>Train crossing pole: T = Length / Speed</div></div>
+      <div class="formula-card"><div class="formula-topic">Profit & Loss</div><div class="formula-text">Profit% = (Profit / CP) × 100<br>SP = CP × (1 + P%/100)<br>Successive discount a%, b% = a + b - (ab/100)%</div></div>
+      <div class="formula-card"><div class="formula-topic">Compound Interest</div><div class="formula-text">A = P(1 + r/100)^n<br>CI = A - P<br>SI = (P × R × T) / 100<br>Difference CI - SI (2yr) = P(r/100)²</div></div>
+      <div class="formula-card"><div class="formula-topic">Probability</div><div class="formula-text">P(E) = Favourable / Total outcomes<br>P(A or B) = P(A) + P(B) - P(A∩B)<br>P(A and B) = P(A) × P(B) [independent]<br>P(not A) = 1 - P(A)</div></div>
+      <div class="formula-card"><div class="formula-topic">Percentages Tricks</div><div class="formula-text">x% of y = y% of x (flip trick!)<br>Successive %: a+b+(ab/100)<br>% change = (New-Old)/Old × 100<br>Fraction shortcuts: 1/8=12.5%, 1/6=16.7%</div></div>
+      <div class="formula-card"><div class="formula-topic">Permutations & Combinations</div><div class="formula-text">nPr = n! / (n-r)!<br>nCr = n! / [r! × (n-r)!]<br>Circular arrangements = (n-1)!<br>Identical items: n! / (p! × q!)</div></div>
+      <div class="formula-card"><div class="formula-topic">Mixtures (Alligation)</div><div class="formula-text">Ratio of mixing = (Dearer - Mean) : (Mean - Cheaper)<br>Mean price = Total cost / Total quantity<br>Replacement: Final = P × (1 - d/V)^n</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINALE -->
+<div class="finale reveal">
+  <div class="finale-title">You Have 8 Days.<br><span>That Is Enough.</span></div>
+  <p class="finale-sub">6–7 focused hours/day + this plan = Ninja is guaranteed. Digital is very achievable.<br>Stay consistent. Attempt everything. No negative marking means never leave blank.</p>
+  <div class="finale-badges">
+    <div class="finale-badge" style="color:var(--blue);border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.08)">◆ NINJA — Realistic</div>
+    <div class="finale-badge" style="color:var(--teal);border-color:rgba(6,214,160,0.4);background:rgba(6,214,160,0.08)">◆ DIGITAL — Very Achievable</div>
+    <div class="finale-badge" style="color:var(--amber);border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.08)">◆ PRIME — Aim High</div>
+  </div>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em">TCS_NQT.guide · Built for All India Batch Students · All Resources Free</div>
+</div>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx-6+'px'; cursor.style.top = my-6+'px';
+});
+function animateRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx-18+'px'; ring.style.top = ry-18+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.addEventListener('mousedown', () => { cursor.classList.add('clicking'); ring.classList.add('clicking'); });
+document.addEventListener('mouseup', () => { cursor.classList.remove('clicking'); ring.classList.remove('clicking'); });
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.style.transform = 'scale(1.5)');
+  el.addEventListener('mouseleave', () => ring.style.transform = 'scale(1)');
+});
+
+// Day tabs
+function showDay(n) {
+  document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('day-'+n).classList.add('active');
+  document.querySelectorAll('.day-tab')[n-1].classList.add('active');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth active nav
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  sections.forEach(s => {
+    if (scrollY >= s.offsetTop - 120) {
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.style.color = '';
+        if (a.getAttribute('href') === '#'+s.id) a.style.color = 'var(--blue)';
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
