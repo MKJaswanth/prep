@@ -262,7 +262,7 @@ a:focus-visible, button:focus-visible{
 /* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease}
+.reveal{opacity:1;transform:none;transition:all 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* Scrollbar */
@@ -435,7 +435,7 @@ a:focus-visible, button:focus-visible{
 
     <div class="checklist-card">
       <div class="checklist-title">Daily Revision Checklist</div>
-      <div class="checklist-sub" id="checklist-sub">Tick completed items — progress is saved automatically on this device.</div>
+      <div class="checklist-sub">Tick completed items — progress is saved automatically on this device.</div>
       <div class="checklist-grid" id="checklist-grid">
         <label class="check-item"><input type="checkbox" data-check="formula"> Formula sheet revision</label>
         <label class="check-item"><input type="checkbox" data-check="verbal"> Verbal practice set</label>
@@ -1128,39 +1128,14 @@ if (jumpTodayBtn) {
 function countdownTick() {
   const daysLeft = updateCountdownUI();
   setCurrentPrepDay(daysLeft);
-  ensureChecklistForToday();
 }
 
 countdownTick();
 setInterval(countdownTick, 60000);
 
 // Persistent checklist
-const checklistStorageBase = 'tcsNqtChecklistV1';
+const checklistKey = 'tcsNqtChecklistV1';
 const checklistInputs = Array.from(document.querySelectorAll('#checklist-grid input[type="checkbox"]'));
-const checklistSubEl = document.getElementById('checklist-sub');
-let activeChecklistKey = '';
-
-function getLocalDateKey() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function getChecklistKeyForToday() {
-  return `${checklistStorageBase}-${getLocalDateKey()}`;
-}
-
-function formatTodayLabel() {
-  return new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-}
-
-function updateChecklistLabel() {
-  if (checklistSubEl) {
-    checklistSubEl.textContent = `Checklist for ${formatTodayLabel()} — progress is saved automatically on this device.`;
-  }
-}
 
 function updateChecklistStyles() {
   checklistInputs.forEach(input => {
@@ -1173,8 +1148,7 @@ function updateChecklistStyles() {
 
 function loadChecklistState() {
   try {
-    const key = activeChecklistKey || getChecklistKeyForToday();
-    const saved = JSON.parse(localStorage.getItem(key) || '{}');
+    const saved = JSON.parse(localStorage.getItem(checklistKey) || '{}');
     checklistInputs.forEach(input => {
       input.checked = Boolean(saved[input.dataset.check]);
     });
@@ -1185,29 +1159,19 @@ function loadChecklistState() {
 }
 
 function saveChecklistState() {
-  const key = activeChecklistKey || getChecklistKeyForToday();
   const state = {};
   checklistInputs.forEach(input => {
     state[input.dataset.check] = input.checked;
   });
-  localStorage.setItem(key, JSON.stringify(state));
+  localStorage.setItem(checklistKey, JSON.stringify(state));
   updateChecklistStyles();
-}
-
-function ensureChecklistForToday() {
-  const todayKey = getChecklistKeyForToday();
-  if (activeChecklistKey !== todayKey) {
-    activeChecklistKey = todayKey;
-    loadChecklistState();
-    updateChecklistLabel();
-  }
 }
 
 checklistInputs.forEach(input => {
   input.addEventListener('change', saveChecklistState);
 });
 
-ensureChecklistForToday();
+loadChecklistState();
 
 // Reorder sections: Pattern -> Plan -> Formulas -> Tips -> Resources -> Topics
 const requiredFlow = ['pattern', 'plan', 'formulas', 'tips', 'resources', 'topics'];
