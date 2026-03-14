@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TCS NQT — 8-Day Mastery Guide</title>
+<title>TCS NQT — 10-Day Mastery Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -22,16 +22,16 @@
   --purple: #a855f7;
   --purple-glow: rgba(168,85,247,0.25);
   --cyan: #22d3ee;
-  --text: #e2e8f0;
-  --text-muted: #64748b;
-  --text-dim: #94a3b8;
+  --text: #e8edf6;
+  --text-muted: #9aa9bf;
+  --text-dim: #c3cfdf;
   --font-display: 'Syne', sans-serif;
   --font-mono: 'Space Mono', monospace;
   --font-body: 'DM Sans', sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:auto;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
 /* Custom cursor */
 .cursor{position:fixed;width:12px;height:12px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.2s;mix-blend-mode:screen}
@@ -40,17 +40,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflo
 .cursor-ring.clicking{transform:scale(1.5);border-color:var(--teal)}
 
 /* Noise texture overlay */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.22}
 
 /* Animated grid bg */
-.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;animation:gridMove 20s linear infinite}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(59,130,246,0.028) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.028) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;animation:gridMove 24s linear infinite}
 @keyframes gridMove{to{background-position:60px 60px}}
 
 /* Glow orbs */
 .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
-.orb-1{width:600px;height:600px;background:rgba(59,130,246,0.08);top:-200px;left:-200px;animation:float1 15s ease-in-out infinite}
-.orb-2{width:500px;height:500px;background:rgba(6,214,160,0.06);bottom:-150px;right:-150px;animation:float2 18s ease-in-out infinite}
-.orb-3{width:400px;height:400px;background:rgba(168,85,247,0.06);top:50%;left:60%;animation:float3 12s ease-in-out infinite}
+.orb-1{width:600px;height:600px;background:rgba(59,130,246,0.055);top:-200px;left:-200px;animation:float1 15s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:rgba(6,214,160,0.045);bottom:-150px;right:-150px;animation:float2 18s ease-in-out infinite}
+.orb-3{width:400px;height:400px;background:rgba(168,85,247,0.04);top:50%;left:60%;animation:float3 12s ease-in-out infinite}
 @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
 @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-60px)}}
 @keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
@@ -78,7 +78,7 @@ section{position:relative;z-index:1}
 .hero-title .line-1{display:block;color:#fff}
 .hero-title .line-2{display:block;-webkit-text-stroke:1px var(--blue);color:transparent}
 .hero-title .line-3{display:block;color:var(--teal)}
-.hero-sub{font-size:16px;color:var(--text-dim);max-width:560px;line-height:1.7;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
+.hero-sub{font-size:17px;color:var(--text-dim);max-width:620px;line-height:1.75;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards}
 .hero-stats{display:flex;gap:40px;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
 .stat-item{display:flex;flex-direction:column;gap:4px}
 .stat-num{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;line-height:1}
@@ -122,15 +122,15 @@ section{position:relative;z-index:1}
 .pc-icon{font-size:24px;margin-bottom:4px}
 .pc-qs{font-family:var(--font-display);font-size:42px;font-weight:800;line-height:1}
 .pc-name{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase}
-.pc-time{font-size:12px;color:var(--text-dim);margin-top:4px}
+.pc-time{font-size:13px;color:var(--text-dim);margin-top:4px;line-height:1.5}
 .pc-marks{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-family:var(--font-mono);margin-top:6px}
 
 /* Rules bar */
 .rules-bar{margin:0 80px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .rule-chip{padding:16px 20px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:14px}
 .rule-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.rule-text{font-size:13px;font-weight:500}
-.rule-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+.rule-text{font-size:14px;font-weight:600;color:var(--text)}
+.rule-sub{font-size:12px;color:var(--text-dim);margin-top:3px;line-height:1.45}
 
 /* Day Plan */
 .days-wrapper{padding:0 80px 80px}
@@ -145,14 +145,14 @@ section{position:relative;z-index:1}
 .day-num-big{font-family:var(--font-display);font-size:80px;font-weight:800;line-height:1;opacity:0.06;position:absolute;top:20px;right:24px;color:#fff}
 .day-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;display:inline-block}
 .day-name{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:16px;line-height:1.2}
-.day-tip{font-size:13px;color:var(--text-dim);line-height:1.6;padding:14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:2px solid;margin-bottom:20px}
-.topic-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:var(--text-dim);line-height:1.4}
+.day-tip{font-size:14px;color:var(--text);line-height:1.65;padding:14px;background:rgba(255,255,255,0.045);border-radius:8px;border-left:2px solid;margin-bottom:20px}
+.topic-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;color:var(--text-dim);line-height:1.5}
 .topic-item:last-child{border-bottom:none}
 .topic-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .day-right{display:flex;flex-direction:column;gap:16px}
 .day-resources{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
 .resources-label{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.15em;margin-bottom:14px;text-transform:uppercase}
-.resource-link{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-dim);font-size:13px;transition:all 0.2s;margin-bottom:8px}
+.resource-link{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-dim);font-size:13px;line-height:1.45;transition:all 0.2s;margin-bottom:8px}
 .resource-link:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-glow);transform:translateX(4px)}
 .resource-link:last-child{margin-bottom:0}
 .resource-link .arrow{font-size:16px;transition:transform 0.2s}
@@ -162,12 +162,12 @@ section{position:relative;z-index:1}
 .time-schedule{display:flex;flex-direction:column;gap:10px}
 .time-row{display:flex;gap:12px;align-items:center}
 .time-pill{font-family:var(--font-mono);font-size:10px;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;flex-shrink:0}
-.time-desc{font-size:12px;color:var(--text-dim)}
+.time-desc{font-size:13px;color:var(--text-dim);line-height:1.45}
 
 /* Topics Matrix */
 .topics-section{padding:0 80px 80px}
 .priority-legend{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap}
-.prio-badge{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}
+.prio-badge{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-dim)}
 .prio-dot{width:8px;height:8px;border-radius:50%}
 .topics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .topic-section-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
@@ -176,7 +176,7 @@ section{position:relative;z-index:1}
 .tsc-name{font-family:var(--font-display);font-size:17px;font-weight:700}
 .tsc-count{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-left:auto;letter-spacing:0.1em}
 .tsc-body{padding:0}
-.topic-row{display:flex;align-items:center;justify-content:space-between;padding:11px 24px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:var(--text-dim);transition:background 0.15s}
+.topic-row{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:14px;color:var(--text-dim);transition:background 0.15s}
 .topic-row:hover{background:rgba(255,255,255,0.03)}
 .topic-row:last-child{border-bottom:none}
 .prio-tag{font-family:var(--font-mono);font-size:9px;padding:3px 9px;border-radius:20px;letter-spacing:0.08em;font-weight:700}
@@ -191,8 +191,8 @@ section{position:relative;z-index:1}
 .res-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
 .res-card-icon{font-size:28px;margin-bottom:14px}
 .res-card-title{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:6px}
-.res-card-desc{font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6}
-.res-link{display:block;padding:9px 14px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;text-decoration:none;color:var(--blue);font-size:12px;font-family:var(--font-mono);letter-spacing:0.05em;text-align:center;transition:all 0.2s;margin-bottom:8px}
+.res-card-desc{font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.7}
+.res-link{display:block;padding:10px 14px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;text-decoration:none;color:#8ec5ff;font-size:12px;font-family:var(--font-mono);letter-spacing:0.05em;text-align:center;transition:all 0.2s;margin-bottom:8px}
 .res-link:hover{background:rgba(59,130,246,0.2);transform:scale(1.02)}
 .res-link:last-child{margin-bottom:0}
 
@@ -205,7 +205,7 @@ section{position:relative;z-index:1}
 .tip-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:8px;transition:background 0.15s}
 .tip-item:hover{background:rgba(255,255,255,0.03)}
 .tip-bullet{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-family:var(--font-mono);font-weight:700}
-.tip-text{font-size:13px;color:var(--text-dim);line-height:1.5}
+.tip-text{font-size:14px;color:var(--text-dim);line-height:1.6}
 .tip-strong{color:var(--text);font-weight:500}
 
 /* Formula cheat */
@@ -213,14 +213,49 @@ section{position:relative;z-index:1}
 .formula-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .formula-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
 .formula-topic{font-family:var(--font-mono);font-size:10px;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
-.formula-text{font-size:13px;color:var(--text-dim);line-height:1.6;font-family:var(--font-mono);background:rgba(255,255,255,0.03);padding:12px;border-radius:6px;font-size:12px}
+.formula-text{font-size:13px;color:var(--text);line-height:1.65;font-family:var(--font-mono);background:rgba(255,255,255,0.04);padding:12px;border-radius:6px}
+
+/* Dynamic helpers */
+.countdown-chip{position:fixed;top:76px;right:22px;z-index:120;background:rgba(10,16,32,0.9);border:1px solid rgba(59,130,246,0.35);border-radius:10px;padding:10px 14px;backdrop-filter:blur(10px);min-width:180px;box-shadow:0 8px 30px rgba(0,0,0,0.35)}
+.chip-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.chip-value{font-family:var(--font-display);font-size:22px;line-height:1;color:var(--blue);font-weight:800}
+.chip-sub{font-size:12px;color:var(--text-dim);margin-top:2px}
+
+.today-focus{margin:0 80px 24px;padding:16px 18px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:space-between;gap:14px}
+.today-focus-text{font-size:14px;color:var(--text)}
+.today-focus-text strong{color:var(--blue)}
+.today-focus-btn{padding:8px 14px;border-radius:8px;border:1px solid rgba(59,130,246,0.35);background:rgba(59,130,246,0.15);color:#dbeafe;font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.today-focus-btn:hover{background:rgba(59,130,246,0.28)}
+
+.checklist-card{margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px}
+.checklist-title{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:6px}
+.checklist-sub{font-size:13px;color:var(--text-dim);margin-bottom:14px}
+.checklist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.check-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);border-radius:10px;cursor:pointer;transition:all 0.2s;color:var(--text-dim);font-size:13px}
+.check-item:hover{border-color:rgba(59,130,246,0.3);color:var(--text)}
+.check-item input{accent-color:var(--blue);width:16px;height:16px;cursor:pointer}
+.check-item.done{background:rgba(6,214,160,0.08);border-color:rgba(6,214,160,0.35);color:var(--text)}
 
 /* Footer / Final CTA */
 .finale{padding:80px;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
 .finale::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(59,130,246,0.1),transparent 70%)}
 .finale-title{font-family:var(--font-display);font-size:clamp(36px,5vw,72px);font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:20px;position:relative}
 .finale-title span{-webkit-text-stroke:1px var(--blue);color:transparent}
-.finale-sub{font-size:16px;color:var(--text-dim);margin-bottom:40px;position:relative}
+.finale-sub{font-size:17px;color:var(--text-dim);margin-bottom:40px;position:relative;line-height:1.7}
+
+/* Readability improvements */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .grid-bg,.orb,.reveal,.hero-eyebrow,.hero-title,.hero-sub,.hero-stats,.hero-right{animation:none !important;transition:none !important}
+}
+
+@media (hover:none), (pointer:coarse){
+  .cursor,.cursor-ring{display:none}
+}
 .finale-badges{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative}
 .finale-badge{padding:12px 24px;border-radius:8px;font-family:var(--font-mono);font-size:12px;border:1px solid;letter-spacing:0.05em}
 
@@ -239,9 +274,14 @@ section{position:relative;z-index:1}
 @media(max-width:900px){
   nav{padding:14px 20px}
   .nav-links{display:none}
+  .countdown-chip{top:68px;right:14px;padding:8px 10px;min-width:150px}
+  .chip-value{font-size:18px}
   .hero{padding:100px 24px 60px}
   .hero-right{display:none}
   .hero-stats{flex-wrap:wrap;gap:24px}
+  .hero-sub{font-size:16px;line-height:1.75}
+  .today-focus{margin:0 24px 18px;flex-direction:column;align-items:flex-start}
+  .checklist-grid{grid-template-columns:1fr}
   .section-header,.pattern-grid,.rules-bar,.days-wrapper,.topics-section,.resources-section,.tips-section,.formula-section,.resources-grid,.finale{padding-left:24px;padding-right:24px}
   .pattern-grid{grid-template-columns:repeat(2,1fr)}
   .rules-bar,.topics-grid,.tips-grid,.formula-grid,.resources-grid{grid-template-columns:1fr}
@@ -275,28 +315,34 @@ section{position:relative;z-index:1}
   <div class="nav-logo">TCS<span>_NQT</span>.guide</div>
   <div class="nav-links">
     <a href="#pattern">Pattern</a>
-    <a href="#plan">8-Day Plan</a>
-    <a href="#topics">Topics</a>
-    <a href="#resources">Resources</a>
-    <a href="#tips">Tips</a>
+    <a href="#plan">10-Day Prep</a>
     <a href="#formulas">Formulas</a>
+    <a href="#tips">Tips</a>
+    <a href="#resources">Resources</a>
+    <a href="#topics">Topics</a>
   </div>
   <a href="#plan" class="nav-cta">Start Prep →</a>
 </nav>
 
+<div class="countdown-chip" id="countdown-chip">
+  <div class="chip-label">Exam Countdown</div>
+  <div class="chip-value" id="countdown-chip-days">10</div>
+  <div class="chip-sub" id="countdown-chip-sub">days remaining</div>
+</div>
+
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-eyebrow">All India Batch · 8-Day Battle Plan</div>
+  <div class="hero-eyebrow">All India Batch · 10-Day Battle Plan · <span id="exam-countdown-text">Countdown loading...</span></div>
   <h1 class="hero-title">
     <span class="line-1">CRACK THE</span>
     <span class="line-2">TCS NQT</span>
-    <span class="line-3">IN 8 DAYS.</span>
+    <span class="line-3">IN 10 DAYS.</span>
   </h1>
   <p class="hero-sub">Complete prep guide — every topic, free resource, day-by-day schedule, and exam strategy. Built for students with limited time and big goals.</p>
   <div class="hero-stats">
     <div class="stat-item"><div class="stat-num blue">92</div><div class="stat-label">Total Qs</div></div>
     <div class="stat-item"><div class="stat-num teal">5</div><div class="stat-label">Sections</div></div>
-    <div class="stat-item"><div class="stat-num amber">8</div><div class="stat-label">Days Left</div></div>
+    <div class="stat-item"><div class="stat-num amber" id="days-left">10</div><div class="stat-label">Days To Exam</div></div>
     <div class="stat-item"><div class="stat-num" style="color:var(--coral)">0</div><div class="stat-label">Neg Marking</div></div>
   </div>
   <div class="hero-right">
@@ -373,15 +419,33 @@ section{position:relative;z-index:1}
   </div>
 </section>
 
-<!-- 8-DAY PLAN -->
+<!-- 10-DAY PLAN -->
 <section id="plan">
   <div class="section-header reveal">
     <div>
       <div class="section-label">02 / Study Schedule</div>
-      <h2 class="section-title">The <span class="c-teal">8-Day</span> Plan</h2>
+      <h2 class="section-title">The <span class="c-teal">10-Day</span> Plan</h2>
     </div>
   </div>
   <div class="days-wrapper reveal">
+    <div class="today-focus" id="today-focus">
+      <div class="today-focus-text" id="today-focus-text">Loading your recommended prep day...</div>
+      <button class="today-focus-btn" id="jump-today-btn" type="button">Go To Today’s Day</button>
+    </div>
+
+    <div class="checklist-card">
+      <div class="checklist-title">Daily Revision Checklist</div>
+      <div class="checklist-sub" id="checklist-sub">Tick completed items — progress is saved automatically on this device.</div>
+      <div class="checklist-grid" id="checklist-grid">
+        <label class="check-item"><input type="checkbox" data-check="formula"> Formula sheet revision</label>
+        <label class="check-item"><input type="checkbox" data-check="verbal"> Verbal practice set</label>
+        <label class="check-item"><input type="checkbox" data-check="reasoning"> Reasoning practice set</label>
+        <label class="check-item"><input type="checkbox" data-check="quant"> Quant practice set</label>
+        <label class="check-item"><input type="checkbox" data-check="coding"> 1 coding question</label>
+        <label class="check-item"><input type="checkbox" data-check="mistakes"> Mistake-log review</label>
+      </div>
+    </div>
+
     <div class="days-tabs">
       <button class="day-tab active" onclick="showDay(1)">Day 1</button>
       <button class="day-tab" onclick="showDay(2)">Day 2</button>
@@ -391,6 +455,8 @@ section{position:relative;z-index:1}
       <button class="day-tab" onclick="showDay(6)">Day 6</button>
       <button class="day-tab" onclick="showDay(7)">Day 7</button>
       <button class="day-tab" onclick="showDay(8)">Day 8</button>
+      <button class="day-tab" onclick="showDay(9)">Day 9</button>
+      <button class="day-tab" onclick="showDay(10)">Day 10</button>
     </div>
 
     <!-- Day 1 -->
@@ -627,18 +693,18 @@ section{position:relative;z-index:1}
     <div class="day-content" id="day-8">
       <div class="day-left" style="border-top-color:var(--teal)">
         <div class="day-num-big">08</div>
-        <div class="day-tag c-teal">Light Revision · 4 Hours Max</div>
-        <div class="day-name">Revise & <span class="c-teal">Rest</span></div>
-        <div class="day-tip" style="border-color:var(--teal)">Keep Day 8 LIGHT. Confidence beats cramming. No new topics. Review notes, get 7–8 hours sleep. Alertness &gt; knowledge.</div>
-        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Quick scan: all formula sheets (Quant + Reasoning tricks)</div>
-        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Light practice: 10 Verbal + 10 Reasoning Qs only</div>
-        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Review TCS NQT PYQs for last-minute pattern awareness</div>
-        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Re-attempt 1 coding problem you felt unsure about</div>
-        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Sleep 7–8 hours. NO all-nighter! Cognitive drop = 20–30%</div>
+        <div class="day-tag c-teal">Targeted Revision · 6 Hours</div>
+        <div class="day-name">Weak Area <span class="c-teal">Fix Day</span></div>
+        <div class="day-tip" style="border-color:var(--teal)">Use mock-test analytics from Day 7. Focus only on your lowest-scoring areas; avoid redoing easy sections.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Revise weakest Quant topic + 25 targeted problems</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Revise weakest Reasoning topic + 20 focused questions</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Quick Verbal grammar refresh + RC speed drill</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Re-solve 2 previously incorrect coding questions</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Make a final one-page formula + trick sheet</div>
       </div>
       <div class="day-right">
         <div class="day-resources">
-          <div class="resources-label">PYQ Banks</div>
+          <div class="resources-label">Revision Resources</div>
           <a href="https://prepinsta.com/tcs-nqt/previous-year-papers/" target="_blank" class="resource-link"><div><strong>PrepInsta PYQs</strong><br><span style="font-size:11px">Previous year NQT papers with answers</span></div><span class="arrow">→</span></a>
           <a href="https://www.geeksforgeeks.org/tcs-nqt-previous-year-papers/" target="_blank" class="resource-link"><div><strong>GFG TCS NQT PYQs</strong><br><span style="font-size:11px">Detailed solutions for each paper</span></div><span class="arrow">→</span></a>
           <a href="https://learning.tcsionhub.in/hub/campus/" target="_blank" class="resource-link"><div><strong>TCS iON Official Portal</strong><br><span style="font-size:11px">Official practice material from TCS</span></div><span class="arrow">→</span></a>
@@ -646,10 +712,74 @@ section{position:relative;z-index:1}
         <div class="time-box">
           <div class="resources-label">Time Breakdown</div>
           <div class="time-schedule">
-            <div class="time-row"><span class="time-pill">08:00–09:00</span><span class="time-desc">Formula sheet revision only</span></div>
-            <div class="time-row"><span class="time-pill">09:30–11:00</span><span class="time-desc">20 Qs light practice</span></div>
-            <div class="time-row"><span class="time-pill">11:30–12:30</span><span class="time-desc">PYQ pattern review</span></div>
-            <div class="time-row"><span class="time-pill">13:00+</span><span class="time-desc">Rest, eat well, sleep early</span></div>
+            <div class="time-row"><span class="time-pill">07:00–09:00</span><span class="time-desc">Weak Quant revision + drills</span></div>
+            <div class="time-row"><span class="time-pill">09:30–11:30</span><span class="time-desc">Weak Reasoning practice</span></div>
+            <div class="time-row"><span class="time-pill">13:00–15:00</span><span class="time-desc">Verbal speed + accuracy session</span></div>
+            <div class="time-row"><span class="time-pill">16:00–18:00</span><span class="time-desc">Coding correction + formula sheet</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-content" id="day-9">
+      <div class="day-left" style="border-top-color:var(--purple)">
+        <div class="day-num-big">09</div>
+        <div class="day-tag c-purple">Final Mock · 7 Hours</div>
+        <div class="day-name">Full Mock <span class="c-purple">Round 2</span></div>
+        <div class="day-tip" style="border-color:var(--purple)">Treat this exactly like exam day. Focus on pacing, calm execution, and maximizing attempts because there is no negative marking.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Take one complete TCS-style mock in a single sitting</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Track section timing and attempt rate</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Review every incorrect and skipped question</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Reinforce top 15 formulas and top 10 reasoning tricks</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--purple)"></span>Practice 1 coding question in 30 minutes</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Mock Test Sources</div>
+          <a href="https://prepinsta.com/tcs-nqt/mock-test/" target="_blank" class="resource-link"><div><strong>PrepInsta Full Mock</strong><br><span style="font-size:11px">Closest structure to real test</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/quiz/tcs-nqt/" target="_blank" class="resource-link"><div><strong>GFG NQT Quiz</strong><br><span style="font-size:11px">Section-wise timed quiz sets</span></div><span class="arrow">→</span></a>
+          <a href="https://www.freshersworld.com/tcs-nqt-online-test/1" target="_blank" class="resource-link"><div><strong>FreshersWorld Mock</strong><br><span style="font-size:11px">Alternate full-length simulation</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">08:00–11:00</span><span class="time-desc">Full mock test (strict timing)</span></div>
+            <div class="time-row"><span class="time-pill">11:30–13:00</span><span class="time-desc">Score analysis + mistake log</span></div>
+            <div class="time-row"><span class="time-pill">14:00–15:30</span><span class="time-desc">Formula + shortcut compression</span></div>
+            <div class="time-row"><span class="time-pill">16:00–17:00</span><span class="time-desc">1 coding question timed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 10 -->
+    <div class="day-content" id="day-10">
+      <div class="day-left" style="border-top-color:var(--teal)">
+        <div class="day-num-big">10</div>
+        <div class="day-tag c-teal">Light Revision · 4 Hours Max</div>
+        <div class="day-name">Revise & <span class="c-teal">Rest</span></div>
+        <div class="day-tip" style="border-color:var(--teal)">Keep Day 10 light. No new topics, no panic. Prioritize confidence, sleep, and mental freshness before the exam.</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Quick scan: one-page formula and strategy sheet</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Light set: 10 Verbal + 10 Reasoning + 10 Quant</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Read your mock mistake-log once</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Re-open 1 easy coding template you are confident with</div>
+        <div class="topic-item"><span class="topic-dot" style="background:var(--teal)"></span>Sleep 7–8 hours. Avoid late-night preparation</div>
+      </div>
+      <div class="day-right">
+        <div class="day-resources">
+          <div class="resources-label">Last-Day Checklist</div>
+          <a href="https://learning.tcsionhub.in/hub/campus/" target="_blank" class="resource-link"><div><strong>TCS iON Portal</strong><br><span style="font-size:11px">Verify exam instructions and login access</span></div><span class="arrow">→</span></a>
+          <a href="https://prepinsta.com/tcs-nqt/previous-year-papers/" target="_blank" class="resource-link"><div><strong>PrepInsta PYQ Set</strong><br><span style="font-size:11px">One final pattern refresh</span></div><span class="arrow">→</span></a>
+          <a href="https://www.geeksforgeeks.org/tcs-nqt-previous-year-papers/" target="_blank" class="resource-link"><div><strong>GFG PYQ Solutions</strong><br><span style="font-size:11px">Quick review of common traps</span></div><span class="arrow">→</span></a>
+        </div>
+        <div class="time-box">
+          <div class="resources-label">Time Breakdown</div>
+          <div class="time-schedule">
+            <div class="time-row"><span class="time-pill">08:00–09:00</span><span class="time-desc">Formula + approach recap</span></div>
+            <div class="time-row"><span class="time-pill">09:30–11:00</span><span class="time-desc">30-question light mixed practice</span></div>
+            <div class="time-row"><span class="time-pill">11:30–12:30</span><span class="time-desc">Mistake-log + checklist review</span></div>
+            <div class="time-row"><span class="time-pill">13:00+</span><span class="time-desc">Rest, hydrate, and sleep early</span></div>
           </div>
         </div>
       </div>
@@ -661,7 +791,7 @@ section{position:relative;z-index:1}
 <section id="topics">
   <div class="section-header reveal">
     <div>
-      <div class="section-label">03 / Topic Coverage</div>
+      <div class="section-label">06 / Topic Coverage</div>
       <h2 class="section-title">All <span class="c-amber">Topics</span> Mapped</h2>
     </div>
   </div>
@@ -759,7 +889,7 @@ section{position:relative;z-index:1}
 <section id="resources">
   <div class="section-header reveal">
     <div>
-      <div class="section-label">04 / Study Material</div>
+      <div class="section-label">05 / Study Material</div>
       <h2 class="section-title">Free <span class="c-coral">Resources</span></h2>
     </div>
   </div>
@@ -801,7 +931,7 @@ section{position:relative;z-index:1}
 <section id="tips">
   <div class="section-header reveal">
     <div>
-      <div class="section-label">05 / Exam Strategy</div>
+      <div class="section-label">04 / Exam Strategy</div>
       <h2 class="section-title">Win on <span class="c-purple">Exam Day</span></h2>
     </div>
   </div>
@@ -832,7 +962,7 @@ section{position:relative;z-index:1}
         <div class="tip-list">
           <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Leave questions blank.</span> No negative marking — always attempt. Guess after elimination.</div></div>
           <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Spend 3+ min on one Aptitude Q.</span> Mark your best guess and move on immediately.</div></div>
-          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Start new topics on Day 8.</span> Only revise what you know — panic, not progress.</div></div>
+          <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Start new topics on Day 10.</span> Only revise what you know — panic, not progress.</div></div>
           <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Pull an all-nighter.</span> Cognitive performance drops 20–30% without 7–8 hrs sleep.</div></div>
           <div class="tip-item"><div class="tip-bullet" style="background:rgba(244,63,94,0.1);color:var(--coral)">✕</div><div class="tip-text"><span class="tip-strong">Skip the Day 7 mock test.</span> Time management is a skill — it must be practiced.</div></div>
         </div>
@@ -854,7 +984,7 @@ section{position:relative;z-index:1}
 <section id="formulas">
   <div class="section-header reveal">
     <div>
-      <div class="section-label">06 / Quick Reference</div>
+      <div class="section-label">03 / Quick Reference</div>
       <h2 class="section-title">Formula <span class="c-blue">Cheat Sheet</span></h2>
     </div>
   </div>
@@ -874,7 +1004,7 @@ section{position:relative;z-index:1}
 
 <!-- FINALE -->
 <div class="finale reveal">
-  <div class="finale-title">You Have 8 Days.<br><span>That Is Enough.</span></div>
+  <div class="finale-title">You Have 10 Days.<br><span>That Is Enough.</span></div>
   <p class="finale-sub">6–7 focused hours/day + this plan = Ninja is guaranteed. Digital is very achievable.<br>Stay consistent. Attempt everything. No negative marking means never leave blank.</p>
   <div class="finale-badges">
     <div class="finale-badge" style="color:var(--blue);border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.08)">◆ NINJA — Realistic</div>
@@ -885,34 +1015,210 @@ section{position:relative;z-index:1}
 </div>
 
 <script>
-// Custom cursor
+// Custom cursor (enabled only for precise pointer devices)
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx-6+'px'; cursor.style.top = my-6+'px';
-});
-function animateRing() {
-  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-  ring.style.left = rx-18+'px'; ring.style.top = ry-18+'px';
-  requestAnimationFrame(animateRing);
+const useCustomCursor = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+if (useCustomCursor) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.body.style.cursor = 'none';
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+
+  animateRing();
+  document.addEventListener('mousedown', () => { cursor.classList.add('clicking'); ring.classList.add('clicking'); });
+  document.addEventListener('mouseup', () => { cursor.classList.remove('clicking'); ring.classList.remove('clicking'); });
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.style.transform = 'scale(1.5)');
+    el.addEventListener('mouseleave', () => ring.style.transform = 'scale(1)');
+  });
+} else {
+  cursor.style.display = 'none';
+  ring.style.display = 'none';
 }
-animateRing();
-document.addEventListener('mousedown', () => { cursor.classList.add('clicking'); ring.classList.add('clicking'); });
-document.addEventListener('mouseup', () => { cursor.classList.remove('clicking'); ring.classList.remove('clicking'); });
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.style.transform = 'scale(1.5)');
-  el.addEventListener('mouseleave', () => ring.style.transform = 'scale(1)');
-});
 
 // Day tabs
 function showDay(n) {
   document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
   document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('day-'+n).classList.add('active');
-  document.querySelectorAll('.day-tab')[n-1].classList.add('active');
+  const dayPanel = document.getElementById('day-'+n);
+  const dayTab = document.querySelectorAll('.day-tab')[n-1];
+  if (dayPanel) dayPanel.classList.add('active');
+  if (dayTab) dayTab.classList.add('active');
 }
+
+// Dynamic countdown (Exam: 26 March 2026)
+const examDate = new Date('2026-03-26T00:00:00');
+const daysLeftEl = document.getElementById('days-left');
+const countdownTextEl = document.getElementById('exam-countdown-text');
+const heroDaysHeadline = document.querySelector('.hero-title .line-3');
+const countdownChipDaysEl = document.getElementById('countdown-chip-days');
+const countdownChipSubEl = document.getElementById('countdown-chip-sub');
+const todayFocusTextEl = document.getElementById('today-focus-text');
+const jumpTodayBtn = document.getElementById('jump-today-btn');
+
+let currentRecommendedDay = 1;
+
+function getDaysLeft() {
+  const now = new Date();
+  const diffMs = examDate.getTime() - now.getTime();
+  if (diffMs <= 0) return 0;
+  return Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+}
+
+function updateCountdownUI() {
+  const daysLeft = getDaysLeft();
+  if (daysLeftEl) daysLeftEl.textContent = String(daysLeft);
+
+  if (countdownTextEl) {
+    countdownTextEl.textContent = daysLeft > 0 ? `Exam in ${daysLeft} day${daysLeft === 1 ? '' : 's'}` : 'Exam Day';
+  }
+
+  if (heroDaysHeadline) {
+    heroDaysHeadline.textContent = daysLeft > 0 ? `IN ${daysLeft} DAYS.` : 'EXAM DAY.';
+  }
+
+  if (countdownChipDaysEl) {
+    countdownChipDaysEl.textContent = String(daysLeft);
+  }
+
+  if (countdownChipSubEl) {
+    countdownChipSubEl.textContent = daysLeft === 0 ? 'exam day is here' : `day${daysLeft === 1 ? '' : 's'} remaining`;
+  }
+
+  return daysLeft;
+}
+
+function setCurrentPrepDay(daysLeft) {
+  const prepDay = Math.min(10, Math.max(1, 11 - Math.max(daysLeft, 1)));
+  currentRecommendedDay = prepDay;
+  showDay(prepDay);
+
+  if (todayFocusTextEl) {
+    todayFocusTextEl.innerHTML = daysLeft > 0
+      ? `Recommended focus: <strong>Day ${prepDay}</strong> of your 10-day plan (exam in ${daysLeft} day${daysLeft === 1 ? '' : 's'}).`
+      : 'Recommended focus: <strong>Exam mode</strong> — stay calm, manage time, attempt everything.';
+  }
+}
+
+if (jumpTodayBtn) {
+  jumpTodayBtn.addEventListener('click', () => {
+    showDay(currentRecommendedDay);
+    const planSection = document.getElementById('plan');
+    if (planSection) {
+      planSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
+
+function countdownTick() {
+  const daysLeft = updateCountdownUI();
+  setCurrentPrepDay(daysLeft);
+  ensureChecklistForToday();
+}
+
+countdownTick();
+setInterval(countdownTick, 60000);
+
+// Persistent checklist
+const checklistStorageBase = 'tcsNqtChecklistV1';
+const checklistInputs = Array.from(document.querySelectorAll('#checklist-grid input[type="checkbox"]'));
+const checklistSubEl = document.getElementById('checklist-sub');
+let activeChecklistKey = '';
+
+function getLocalDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getChecklistKeyForToday() {
+  return `${checklistStorageBase}-${getLocalDateKey()}`;
+}
+
+function formatTodayLabel() {
+  return new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function updateChecklistLabel() {
+  if (checklistSubEl) {
+    checklistSubEl.textContent = `Checklist for ${formatTodayLabel()} — progress is saved automatically on this device.`;
+  }
+}
+
+function updateChecklistStyles() {
+  checklistInputs.forEach(input => {
+    const parent = input.closest('.check-item');
+    if (parent) {
+      parent.classList.toggle('done', input.checked);
+    }
+  });
+}
+
+function loadChecklistState() {
+  try {
+    const key = activeChecklistKey || getChecklistKeyForToday();
+    const saved = JSON.parse(localStorage.getItem(key) || '{}');
+    checklistInputs.forEach(input => {
+      input.checked = Boolean(saved[input.dataset.check]);
+    });
+    updateChecklistStyles();
+  } catch (_) {
+    updateChecklistStyles();
+  }
+}
+
+function saveChecklistState() {
+  const key = activeChecklistKey || getChecklistKeyForToday();
+  const state = {};
+  checklistInputs.forEach(input => {
+    state[input.dataset.check] = input.checked;
+  });
+  localStorage.setItem(key, JSON.stringify(state));
+  updateChecklistStyles();
+}
+
+function ensureChecklistForToday() {
+  const todayKey = getChecklistKeyForToday();
+  if (activeChecklistKey !== todayKey) {
+    activeChecklistKey = todayKey;
+    loadChecklistState();
+    updateChecklistLabel();
+  }
+}
+
+checklistInputs.forEach(input => {
+  input.addEventListener('change', saveChecklistState);
+});
+
+ensureChecklistForToday();
+
+// Reorder sections: Pattern -> Plan -> Formulas -> Tips -> Resources -> Topics
+const requiredFlow = ['pattern', 'plan', 'formulas', 'tips', 'resources', 'topics'];
+const finaleEl = document.querySelector('.finale');
+const flowParent = document.body;
+requiredFlow.forEach(sectionId => {
+  const sectionEl = document.getElementById(sectionId);
+  if (sectionEl && finaleEl) {
+    flowParent.insertBefore(sectionEl, finaleEl);
+  }
+});
 
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
