@@ -31,7 +31,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:auto;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:auto;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;max-width:100vw}
 
 /* Custom cursor */
 .cursor{position:fixed;width:12px;height:12px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.2s;mix-blend-mode:screen}
@@ -270,22 +270,88 @@ a:focus-visible, button:focus-visible{
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px}
 
-/* Mobile */
+/* ── Hamburger button (hidden on desktop) ── */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:200}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile drawer overlay */
+.mobile-nav-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(4,8,16,0.5);backdrop-filter:blur(4px)}
+.mobile-nav-overlay.open{display:block}
+.mobile-nav-drawer{position:fixed;top:0;right:0;width:270px;height:100%;background:rgba(8,14,26,0.98);border-left:1px solid var(--border);z-index:160;display:flex;flex-direction:column;padding:80px 28px 40px;gap:6px;transform:translateX(100%);visibility:hidden;transition:transform 0.32s cubic-bezier(0.4,0,0.2,1),visibility 0s linear 0.32s}
+.mobile-nav-drawer.open{transform:translateX(0);visibility:visible;transition:transform 0.32s cubic-bezier(0.4,0,0.2,1),visibility 0s linear 0s}
+.mobile-nav-drawer a{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.05);transition:color 0.2s}
+.mobile-nav-drawer a:hover{color:var(--blue)}
+.mobile-nav-drawer .mob-cta{margin-top:24px;padding:12px 0;border:1px solid var(--blue);border-radius:6px;color:var(--blue);text-align:center;font-size:12px;letter-spacing:0.08em}
+
+/* ── Base tablet / large mobile ── */
 @media(max-width:900px){
   nav{padding:14px 20px}
-  .nav-links{display:none}
-  .countdown-chip{top:68px;right:14px;padding:8px 10px;min-width:150px}
+  .nav-links,.nav-cta{display:none}
+  .nav-hamburger{display:flex}
+  .countdown-chip{top:66px;right:14px;padding:8px 12px;min-width:140px;border-radius:8px}
   .chip-value{font-size:18px}
-  .hero{padding:100px 24px 60px}
+  .hero{padding:90px 20px 60px;min-height:auto}
+  .hero-eyebrow{font-size:10px;flex-wrap:wrap;gap:8px;margin-bottom:18px}
   .hero-right{display:none}
-  .hero-stats{flex-wrap:wrap;gap:24px}
-  .hero-sub{font-size:16px;line-height:1.75}
-  .today-focus{margin:0 24px 18px;flex-direction:column;align-items:flex-start}
-  .checklist-grid{grid-template-columns:1fr}
-  .section-header,.pattern-grid,.rules-bar,.days-wrapper,.topics-section,.resources-section,.tips-section,.formula-section,.resources-grid,.finale{padding-left:24px;padding-right:24px}
-  .pattern-grid{grid-template-columns:repeat(2,1fr)}
-  .rules-bar,.topics-grid,.tips-grid,.formula-grid,.resources-grid{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:20px 32px}
+  .hero-sub{font-size:15px;line-height:1.75}
+  .hero-scroll{left:20px;bottom:28px}
+  .section-header{padding:48px 20px 28px;flex-direction:column;align-items:flex-start;gap:8px}
+  .section-count{font-size:10px}
+  .pattern-grid{padding:0 20px 48px;grid-template-columns:repeat(2,1fr);gap:10px}
+  .rules-bar{margin:0 20px 48px;grid-template-columns:repeat(2,1fr);gap:10px}
+  .days-wrapper{padding:0 20px 48px}
+  .today-focus{margin:0 0 18px;flex-direction:column;align-items:flex-start;gap:12px}
+  .today-focus-btn{width:100%;text-align:center;padding:11px 14px}
+  .checklist-card{padding:16px}
+  .checklist-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .days-tabs{gap:6px;overflow-x:auto;padding-bottom:6px;flex-wrap:nowrap;scrollbar-width:none}
+  .days-tabs::-webkit-scrollbar{display:none}
+  .day-tab{flex-shrink:0;padding:8px 14px}
   .day-content.active{grid-template-columns:1fr}
+  .day-left{padding:20px}
+  .day-num-big{font-size:60px;opacity:0.04}
+  .topics-section{padding:0 20px 48px}
+  .topics-grid{grid-template-columns:1fr;gap:14px}
+  .resources-section{padding:0 20px 48px}
+  .resources-grid{grid-template-columns:1fr;gap:14px}
+  .tips-section{padding:0 20px 48px}
+  .tips-grid{grid-template-columns:1fr;gap:14px}
+  .formula-section{padding:0 20px 48px}
+  .formula-grid{grid-template-columns:1fr;gap:10px}
+  .finale{padding:56px 20px}
+}
+
+/* ── Small phones ── */
+@media(max-width:480px){
+  .countdown-chip{display:none}
+  .hero-eyebrow{font-size:9px}
+  .hero-stats{gap:16px 24px}
+  .stat-num{font-size:28px}
+  .pattern-grid{grid-template-columns:1fr;gap:8px}
+  .rules-bar{grid-template-columns:1fr}
+  .checklist-grid{grid-template-columns:1fr}
+  .check-item{font-size:13px;padding:11px 12px}
+  .rule-chip{padding:12px 14px}
+  .section-header{padding:36px 16px 20px}
+  .days-wrapper,.topics-section,.resources-section,.tips-section,.formula-section{padding-left:16px;padding-right:16px}
+  .pattern-grid,.rules-bar,.finale{padding-left:16px;padding-right:16px}
+  .day-left{padding:16px}
+  .day-name{font-size:18px}
+  .day-tip{font-size:13px}
+  .topic-item{font-size:13px}
+  .tsc-header{padding:14px 16px}
+  .topic-row{padding:10px 16px;font-size:13px}
+  .res-card{padding:20px}
+  .tip-card{padding:18px}
+  .formula-card{padding:16px}
+  .formula-text{font-size:12px}
+  .finale{padding:40px 16px}
+  .finale-badges{flex-direction:column;align-items:center}
+  .today-focus{padding:14px}
 }
 
 /* Color accent variations */
@@ -322,7 +388,21 @@ a:focus-visible, button:focus-visible{
     <a href="#topics">Topics</a>
   </div>
   <a href="#plan" class="nav-cta">Start Prep →</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-nav-overlay" id="mob-overlay"></div>
+<div class="mobile-nav-drawer" id="mob-drawer">
+  <a href="#pattern" class="mob-link">Pattern</a>
+  <a href="#plan" class="mob-link">10-Day Prep</a>
+  <a href="#formulas" class="mob-link">Formulas</a>
+  <a href="#tips" class="mob-link">Tips</a>
+  <a href="#resources" class="mob-link">Resources</a>
+  <a href="#topics" class="mob-link">Topics</a>
+  <a href="#plan" class="mob-link mob-cta">Start Prep →</a>
+</div>
 
 <div class="countdown-chip" id="countdown-chip">
   <div class="chip-label">Exam Countdown</div>
@@ -1193,6 +1273,28 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Hamburger mobile nav
+const hamburger = document.getElementById('nav-hamburger');
+const mobOverlay = document.getElementById('mob-overlay');
+const mobDrawer = document.getElementById('mob-drawer');
+const mobLinks = document.querySelectorAll('.mob-link');
+
+function openMobNav() {
+  hamburger.classList.add('open');
+  mobOverlay.classList.add('open');
+  mobDrawer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobNav() {
+  hamburger.classList.remove('open');
+  mobOverlay.classList.remove('open');
+  mobDrawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => hamburger.classList.contains('open') ? closeMobNav() : openMobNav());
+mobOverlay.addEventListener('click', closeMobNav);
+mobLinks.forEach(link => link.addEventListener('click', closeMobNav));
 
 // Smooth active nav
 const sections = document.querySelectorAll('section[id]');
